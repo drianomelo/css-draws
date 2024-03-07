@@ -1,9 +1,30 @@
 const body = document.body;
 const prev = document.querySelector(".prev");
 const next = document.querySelector(".next");
-const containerView = document.querySelector(".view");
+
+const swiper = new Swiper(".swiper", {
+  loop: true,
+
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+
+  on: {
+    slideChange: function () {
+      const currentSlide = this.slides[this.activeIndex];
+      this.slides.forEach((slide) => {
+        slide.classList.remove("container-view");
+      });
+      currentSlide.classList.add("container-view");
+      setColor();
+    },
+  },
+});
 
 function setColor() {
+  const containerView = document.querySelector(".container-view");
+
   body.style.backgroundColor = containerView.getAttribute("data-color-bg");
 
   prev.style.backgroundColor = containerView.getAttribute("data-color-text");
